@@ -216,7 +216,7 @@
     <p>We're working hard to bring you a smarter way to manage your groceries. Stay tuned!</p>
 
     <div id="progress-container">
-        <div id="progress-fill">
+        <div id="progress-fill" data-progress="70">
             <h3 id="progress-percentage">70%</h3>
         </div>
     </div>
@@ -268,9 +268,11 @@
         const MAX_WORDS = 120;
 
         // Set initial progress from CSS
-        const initialWidth = parseFloat(getComputedStyle(progressFill).width) / parseFloat(getComputedStyle(progressFill.parentNode).width) * 100;
+        // const initialWidth = parseFloat(getComputedStyle(progressFill).width) / parseFloat(getComputedStyle(progressFill.parentNode).width) * 100;
+        const initialWidth = progressFill.dataset.progress || 70
+        console.log(initialWidth);
         progressPercentage.textContent = `${Math.round(initialWidth)}%`;
-        progressPercentage.style.opacity = '1';
+        progressPercentage.style.opacity = '70';
 
         // --- Word Count Logic ---
         function updateWordCount() {
