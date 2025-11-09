@@ -1,0 +1,594 @@
+/* --- Global Styles & Reset --- */
+:root {
+    --color-primary: #38761D; /* Deep Green for brand */
+    --color-secondary: #F6B26B; /* Warm Accent (like a fresh orange/bread) */
+    --color-text: #333333;
+    --color-light: #F9F9F9;
+    --color-white: #FFFFFF;
+    --font-family-primary: 'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-white);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
+/* --- Utility: CTA Buttons --- */
+.cta-button-large {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 20px;
+}
+
+.cta-button-large:hover {
+    background-color: #7cb342; /* Slightly lighter green */
+    transform: translateY(-2px);
+    color: var(--color-white);
+}
+/* --- 4. Early Access Banner (New Styles) --- */
+.early-access-banner {
+    /* Replaces the old .cta-banner styles */
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.early-access-banner h4 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.email-signup-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.email-signup-form input[type="email"] {
+    padding: 12px 15px;
+    width: 350px;
+    max-width: 70%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--color-text);
+}
+
+.email-signup-form button {
+    /* Inherits styling from .cta-button-large.alt, but we ensure it flexes correctly */
+    margin-top: 0; 
+}
+
+.small-print {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Responsive adjustments for the form */
+@media (max-width: 600px) {
+    .email-signup-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .email-signup-form input[type="email"] {
+        max-width: 90%;
+        width: 100%;
+    }
+}
+
+.cta-button-large.alt {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.cta-button-large.alt:hover {
+    background-color: #E6A05A;
+    color: var(--color-text);
+}
+
+
+/* --- 1. Header & Navigation --- */
+.header {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.logo-dot {
+    color: var(--color-secondary);
+}
+
+.header nav a {
+    margin-left: 25px;
+    font-weight: 600;
+}
+
+.cta-button-nav {
+    border: 2px solid var(--color-primary);
+    padding: 6px 15px;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cta-button-nav:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* --- 2. Hero Section --- */
+.hero-section {
+    padding: 80px 0;
+    background-color: var(--color-light);
+}
+
+.hero-section .container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 50%;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.hero-image-placeholder {
+    flex: 1;
+    max-width: 50%;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image-placeholder img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-credit {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* --- 3. Mission & Features Section --- */
+.mission-section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.mission-section h3 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.mission-statement {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+}
+
+.feature-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature-item {
+    flex: 1;
+    padding: 30px;
+    background-color: var(--color-light);
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feature-item h4 {
+    color: var(--color-secondary);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* --- 4. Final Call to Action --- */
+.cta-banner {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.cta-banner h4 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.cta-banner p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* --- 5. Footer --- */
+footer {
+    background-color: #222;
+    color: var(--color-light);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+
+/* --- Media Queries for Responsiveness (Mobile View) --- */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+    }
+
+    .header nav {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .header nav a {
+        margin: 5px 10px;
+    }
+
+    .hero-section .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content, .hero-image-placeholder {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .feature-grid {
+        flex-direction: column;
+    }
+    
+    .feature-item {
+        text-align: center;
+    }
+}
+/* --- 4. Upcoming Shops Teaser Section Styles --- */
+.shops-teaser-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: var(--color-light); /* Light background for contrast */
+}
+
+.shops-teaser-section h3 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.teaser-statement {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+}
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.shop-item {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.shop-item:hover {
+    transform: translateY(-5px); /* Nice subtle lift on hover */
+}
+
+.shop-image-blurred {
+    height: 150px; /* Fixed height for consistent look */
+    overflow: hidden;
+}
+
+.blurred-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* --- THE MAGIC BLUR EFFECT --- */
+    filter: blur(10px); 
+    transform: scale(1.05); /* Scales slightly to avoid sharp edges from the blur */
+}
+
+.shop-info {
+    padding: 15px;
+}
+
+.shop-info h4 {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 5px;
+}
+
+.shop-rating {
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+/* --- Responsive adjustments for the Shop Grid --- */
+@media (max-width: 1000px) {
+    .shop-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .shop-grid {
+        grid-template-columns: 1fr; /* Single column on phones */
+    }
+}
+.email-signup-form-extended {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.email-signup-form-extended input[type="email"],
+.email-signup-form-extended input[type="text"] {
+    padding: 12px 15px;
+    width: 250px; /* Reduced width to fit three items */
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--color-text);
+}
+
+.email-signup-form-extended button {
+    margin-top: 0; 
+}
+
+/* Responsive adjustments for the extended form */
+@media (max-width: 850px) {
+    .email-signup-form-extended {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .email-signup-form-extended input {
+        max-width: 90%;
+        width: 100%;
+    }
+}
+
+/* --- 5. Vendor Partner Section Styles --- */
+.vendor-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: var(--color-white); /* White background for contrast against other sections */
+}
+
+.vendor-section h3 {
+    font-size: 2rem;
+    color: var(--color-secondary); /* Using the accent color to highlight the partnership focus */
+    margin-bottom: 10px;
+}
+
+.vendor-tagline {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+}
+
+.vendor-benefits-grid {
+    display: flex;
+    gap: 30px;
+    margin: 40px 0 60px 0;
+}
+
+.benefit-item {
+    flex: 1;
+    padding: 30px;
+    background-color: var(--color-light);
+    border-left: 4px solid var(--color-secondary); /* Highlight border */
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.benefit-item h4 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.vendor-cta-heading {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+}
+
+.vendor-interest-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Allows fields to wrap on smaller screens */
+}
+
+.vendor-interest-form input[type="text"],
+.vendor-interest-form input[type="email"] {
+    padding: 12px 15px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--color-text);
+}
+
+/* Responsive adjustments for the vendor form */
+@media (max-width: 850px) {
+    .vendor-benefits-grid {
+        flex-direction: column;
+    }
+    
+    .vendor-interest-form {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .vendor-interest-form input {
+        width: 90%;
+        max-width: 400px;
+    }
+}
+
+/* --- 6. Footer Policy Links Styles --- */
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: var(--color-light); /* Keep links visible against the dark background */
+    font-size: 0.9rem;
+    margin: 0 15px; /* Spacing between the policy links */
+}
+
+.footer-links a:hover {
+    color: var(--color-secondary);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* --- Policy Page Specific Styles --- */
+.policy-content-section {
+    padding: 60px 0;
+    line-height: 1.8; /* Improves readability of long text blocks */
+}
+
+.policy-title {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.policy-date {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 40px;
+}
+
+.policy-content-section h2 {
+    font-size: 1.8rem;
+    color: var(--color-text);
+    margin: 40px 0 15px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.policy-content-section h3 {
+    font-size: 1.3rem;
+    color: #555;
+    margin: 25px 0 10px 0;
+}
+
+.policy-content-section ul, 
+.policy-content-section ol {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.policy-content-section hr {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
