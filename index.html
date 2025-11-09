@@ -1,464 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Grocery - Coming Soon</title>
+    <title>SmartGrocery.uk - Connecting Local Shops with Local Customers</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="description"
+          content="SmartGrocery.uk connects local independent high street shops directly with customers. Get early access to local groceries, butchers, and bakers!">
 
-    <style>
-        /* General Resets & Body Styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Roboto", sans-serif;
-            color: #333; /* Darker text for readability */
-            background-color: #f0f2f5; /* Light background */
-            display: flex; /* Use flexbox for centering */
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Ensure body takes full viewport height */
-            text-align: center;
-            opacity: 0;
-            animation: fadein 1s forwards; /* Faster fade-in */
-        }
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-        /* Main Container for Centering */
-        #main {
-            width: 90%; /* Take up 90% of the viewport width */
-            max-width: 900px; /* But don't exceed 900px on very large screens for readability */
-            padding: 2rem;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            box-sizing: border-box; /* Include padding in width */
-        }
-
-        h1 {
-            font-weight: 700; /* Bolder for primary heading */
-            color: #2c3e50; /* Darker color */
-            margin-bottom: 15px;
-        }
-
-        h2 {
-            font-weight: 300;
-            margin-bottom: 25px;
-            color: #7f8c8d; /* Muted color for secondary heading */
-        }
-
-        img {
-            max-width: 150px; /* Smaller, fixed max-width for better control */
-            height: auto;
-            display: block; /* Remove extra space below image */
-            margin: 0 auto 30px auto; /* Center image and add margin below */
-        }
-
-        /* Progress bar */
-        #progress-container {
-            width: 100%; /* Take full width of its parent (#main) */
-            margin: 0 auto 40px auto; /* Center and add margin below */
-            background-color: #e0e0e0; /* Lighter background for progress bar container */
-            border-radius: 10px;
-            overflow: hidden; /* Ensures fill is clipped by container's border-radius */
-        }
-
-        #progress-fill {
-            background-color: #00b98b; /* Fill colour */
-            width: 70%; /* Bar percentage */
-            height: 20px; /* Fixed height for consistency */
-            border-radius: 10px; /* Match container roundness */
-            animation: proanimate 2s ease-out forwards; /* Smoother animation */
-            display: flex;
-            justify-content: flex-end; /* Align text to the right inside fill */
-            align-items: center;
-            padding-right: 10px; /* Padding for text inside fill */
-            box-sizing: border-box;
-        }
-
-        #progress-percentage {
-            color: #ffffff;
-            font-weight: 700; /* Make percentage text bolder */
-            font-size: 0.9em;
-            margin: 0;
-            opacity: 0;
-            animation: fadein 3s forwards;
-        }
-
-        /* Form Styling */
-        form div {
-            padding: 0; /* Remove padding from form divs, let inputs handle their own margins */
-            margin-bottom: 15px; /* Spacing between form fields */
-        }
-
-        input[type=text],
-        input[type=email],
-        textarea {
-            width: calc(100% - 24px); /* Full width minus padding */
-            padding: 12px;
-            margin: 0; /* Handled by parent div */
-            box-sizing: border-box;
-            border: 1px solid #ccc; /* Consistent border */
-            border-radius: 4px;
-            background-color: #f8f8f8;
-            font-family: "Roboto", sans-serif; /* Inherit font */
-            font-size: 1rem;
-        }
-
-        input[type=text]:focus,
-        input[type=email]:focus,
-        textarea:focus {
-            border-color: #00b98b; /* Highlight on focus */
-            outline: none; /* Remove default outline */
-            box-shadow: 0 0 0 2px rgba(0, 185, 139, 0.2); /* Subtle focus ring */
-        }
-
-        textarea {
-            min-height: 120px; /* Slightly reduced height, using min-height */
-            resize: vertical; /* Allow vertical resizing only */
-        }
-
-        /* Word count display */
-        .word-count-wrapper {
-            position: relative;
-            margin-bottom: 15px; /* Ensure consistent spacing */
-        }
-
-        .word-count {
-            font-size: 0.85em;
-            color: #7f8c8d;
-            text-align: right;
-            margin-top: 5px;
-            padding-right: 2px; /* Align with input padding */
-        }
-        .word-count.error {
-            color: #e74c3c; /* Red color when over limit */
-            font-weight: bold;
-        }
-
-        /* Error styling for input fields */
-        input.input-error,
-        textarea.input-error {
-            border-color: #e74c3c !important; /* Red border for errors */
-        }
-
-
-        button[type=submit] {
-            background-color: #00b98b; /* Primary button color */
-            border: none;
-            color: white;
-            padding: 12px 25px; /* Adjusted padding */
-            text-decoration: none;
-            margin-top: 20px; /* Space above button */
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions */
-            width: 100%; /* Make button full width */
-        }
-
-        button[type=submit]:hover {
-            background-color: #008f6d; /* Darker green on hover */
-            transform: translateY(-1px); /* Slight lift effect */
-        }
-
-        button[type=submit]:active {
-            transform: translateY(0); /* Press down effect */
-        }
-
-        #result {
-            margin-top: 20px;
-            font-weight: 700;
-            color: #00b98b; /* Success message color */
-        }
-
-        /* Animations */
-        @keyframes fadein {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes proanimate {
-            from { width: 0%; }
-            to { width: 70%; } /* Ensure this matches #progress-fill width */
-        }
-
-        /* Responsive Design */
-        @media screen and (max-width: 768px) {
-            #main {
-                width: 90%; /* Keep 90% for consistency */
-                max-width: none; /* Remove pixel max-width for smaller screens */
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            img {
-                max-width: 120px; /* Adjust image size */
-            }
-
-            h1 {
-                font-size: 1.8em;
-            }
-
-            h2 {
-                font-size: 1.1em;
-            }
-        }
-    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K04QZD1731"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-K04QZD1731');
+    </script>
 </head>
 <body>
-<div id="main">
-    <img src="smart_grocery.png" alt="Smart Grocery">
-    <h1>Smart Grocery</h1>
-    <h2>Our website is currently under construction.</h2>
-    <p>We're working hard to bring you a smarter way to manage your groceries. Stay tuned!</p>
 
-    <div id="progress-container">
-        <div id="progress-fill" data-progress="70">
-            <h3 id="progress-percentage">70%</h3>
+<header class="header">
+    <div class="container">
+        <h1 class="logo">SmartGrocery<span class="logo-dot">.uk</span></h1>
+        <nav>
+            <a href="#mission">Our Mission</a>
+            <a href="#features">How It Works</a>
+            <a href="#partner-with-us">For Shops</a>
+            <a href="#early-access" class="cta-button-nav">Get Early Access</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h2>Go Digital, Stay Local.</h2>
+            <p>The platform connecting local independent high street shops directly with customers in their community,
+                offering **online grocery shopping** across the **UK**.</p>
+            <a href="#early-access" class="cta-button-large" id="hero-cta">Find Shops Near You</a>
+        </div>
+        <div class="hero-image-placeholder">
+            <img src="images/local-market-placeholder.jpg"
+                 alt="A vibrant display of fresh, local produce in a market setting." class="main-hero-image">
+            <p class="image-credit">Image Placeholder: Replace with a free stock photo.</p>
         </div>
     </div>
+</section>
 
-    <section aria-labelledby="contact-form-heading">
-        <h2 id="contact-form-heading">Have a suggestion? Let us know!</h2>
-        <form id="form" novalidate>
+<section id="mission" class="mission-section">
+    <div class="container">
+        <h3>How SmartGrocery.uk Works for Customers</h3>
+        <p id="features" class="mission-statement">
+            Getting fresh, local produce and supporting your community is easy. Follow these simple steps to start
+            shopping!
+        </p>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4>1. 🔎 Discover Local Shops</h4>
+                <p>Enter your location to see a list of **local independent shops** near you. Browse their profiles,
+                    check ratings, and select your favourite grocer, baker, or butcher.</p>
+            </div>
+            <div class="feature-item">
+                <h4>2. 🛒 Browse & Buy Online</h4>
+                <p>Explore the shop's full, real-time catalog. Add fresh produce, artisanal goods, and high-quality
+                    items to your basket and complete your purchase securely online.</p>
+            </div>
+            <div class="feature-item">
+                <h4>3. ⏱️ Select or Quick Collect</h4>
+                <p>Choose a specific **time slot** to collect your order. If you're flexible or in a rush, simply choose
+                    **Quick Collect**—your order will be ready for pickup in approximately **30 minutes**.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="shops-teaser-section">
+    <div class="container">
+        <h3>⭐ Spotlight on Our Upcoming Shops</h3>
+        <p class="teaser-statement">
+            We're partnering with the highest-rated local businesses to bring you the best quality. Get excited for
+            these partners launching soon!
+        </p>
+        <div class="shop-grid">
+            <div class="shop-item">
+                <div class="shop-image-blurred">
+                    <img src="images/fnf-logo.jpg" alt="Blurred teaser image of a local bakery shop front."
+                         class="blurred-image">
+                </div>
+                <div class="shop-info">
+                    <h4>Indian Grocery</h4>
+                    <div class="shop-rating">★★★★★ (4.9)</div>
+                </div>
+            </div>
+            <div class="shop-item">
+                <div class="shop-image-blurred">
+                    <img src="images/butcher-logo.jpg" alt="Blurred teaser image of a local butcher shop interior."
+                         class="blurred-image">
+                </div>
+                <div class="shop-info">
+                    <h4>Finest Meats & Deli</h4>
+                    <div class="shop-rating">★★★★★ (4.8)</div>
+                </div>
+            </div>
+            <div class="shop-item">
+                <div class="shop-image-blurred">
+                    <img src="images/mi-logo.jpg" alt="Blurred teaser image of a local flower shop."
+                         class="blurred-image">
+                </div>
+                <div class="shop-info">
+                    <h4>Indian Subcontinent Grocery</h4>
+                    <div class="shop-rating">★★★★★ (5.0)</div>
+                </div>
+            </div>
+            <div class="shop-item">
+                <div class="shop-image-blurred">
+                    <img src="images/organic-shop-image.jpg" alt="Blurred teaser image of a local fruit and vegetable stall."
+                         class="blurred-image">
+                </div>
+                <div class="shop-info">
+                    <h4>The Organic Grocer</h4>
+                    <div class="shop-rating">★★★★★ (4.7)</div>
+                </div>
+            </div>
+        </div>
+        <a href="#early-access" class="cta-button-large">Be the First to Shop!</a>
+    </div>
+</section>
+
+<section id="partner-with-us" class="vendor-section">
+    <div class="container">
+        <h3>🤝 Partner with SmartGrocery.uk</h3>
+        <p class="vendor-tagline">
+            Helping independent high street businesses thrive in the digital age—without losing your personal touch.
+        </p>
+        <div class="vendor-benefits-grid">
+            <div class="benefit-item">
+                <h4>Reach More Customers</h4>
+                <p>Tap into a new, local online customer base and compete with major chains using our platform.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Maintain Your Brand</h4>
+                <p>Your shop's authenticity, quality, and personal service shine through on your dedicated digital storefront.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Simple Order Management</h4>
+                <p>Manage inventory, receive orders, and prepare for collection with a simple, intuitive dashboard.</p>
+            </div>
+        </div>
+
+        <h4 class="vendor-cta-heading">Ready to Go Digital?</h4>
+
+        <form action="https://api.web3forms.com/submit" method="POST" class="vendor-interest-form" id="vendor-interest-form">
             <input type="hidden" name="access_key" value="b5371eb8-7db9-4511-b458-16ac1cc49e52">
-            <div>
-                <label for="name" class="sr-only">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name" aria-required="true" />
-            </div>
-            <div>
-                <label for="email" class="sr-only">Email</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email" aria-required="true" />
-            </div>
-            <div class="word-count-wrapper">
-                <label for="message" class="sr-only">Suggestion</label>
-                <textarea id="message" name="message" placeholder="Your Suggestion (max 120 words)" required aria-required="true"></textarea>
-                <div class="word-count" id="message-word-count">0 / 120 words</div>
-            </div>
-
-            <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0;">
-                <label for="honeypot">Leave this field blank if you are human:</label>
-                <input type="text" id="honeypot" name="botcheck" tabindex="-1" autocomplete="off">
-            </div>
-
-            <div>
-                <button type="submit" id="submit-button">Submit Form</button>
-            </div>
-
-            <p id="result" aria-live="polite" style="display: none;"></p>
+            <input type="hidden" name="subject" value="New Vendor Interest for SmartGrocery.uk">
+            <input type="text" name="Shop Name" placeholder="Shop Name (e.g., Jane's Bakery)" required>
+            <input type="text" name="Shop Type" placeholder="Type of Shop (e.g., Butcher, Grocer)" required>
+            <input type="email" name="Email" placeholder="Contact Email Address" required>
+            <button type="submit" class="cta-button-large">Apply for Partnership</button>
+            <p id="vendor-result" style="margin-top: 15px; font-weight: 600;"></p>
         </form>
-    </section>
-</div>
+
+        <p class="small-print">We are currently onboarding partners in select UK regions. Register your interest now!</p>
+    </div>
+</section>
+
+
+<section id="early-access" class="early-access-banner">
+    <div class="container">
+        <h4>Get Early Access & Exclusive Offers!</h4>
+        <p>Be one of the first few customers to use SmartGrocery.uk and receive special offers from your local
+            shops.</p>
+
+        <form action="https://api.web3forms.com/submit" method="POST" class="email-signup-form-extended" id="customer-signup-form">
+            <input type="hidden" name="access_key" value="b5371eb8-7db9-4511-b458-16ac1cc49e52">
+            <input type="hidden" name="subject" value="New Customer Early Access Request">
+
+            <input type="email" name="Email" id="email-input" placeholder="Enter your email address..." required>
+            <input type="text" name="Suggestion" placeholder="Which type of shop would you love to see?"
+                   class="optional-input" id="suggestion-input">
+
+            <p id="word-count-display" class="small-print"></p>
+
+            <button type="submit" class="cta-button-large alt" id="customer-submit-button">Sign Me Up</button>
+            <p id="customer-result" style="margin-top: 15px; font-weight: 600;"></p>
+        </form>
+        <p class="small-print">We respect your privacy. No spam, just local goodness.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="accessibility.html">Accessibility Statement</a>
+        </div>
+        <p>&copy; 2025 SmartGrocery.uk. Support Local. Shop Smart.</p>
+    </div>
+</footer>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('form');
-        const result = document.getElementById('result');
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const messageTextarea = document.getElementById('message');
-        const messageWordCount = document.getElementById('message-word-count');
-        const submitButton = document.getElementById('submit-button');
-        const progressFill = document.getElementById('progress-fill');
-        const progressPercentage = document.getElementById('progress-percentage');
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // --- Global Elements ---
+        const emailInput = document.getElementById('email-input');
+        const ctaButtons = document.querySelectorAll('a[href="#early-access"]');
 
-        const MAX_WORDS = 120;
+        // --- Customer Form Elements ---
+        const customerForm = document.getElementById('customer-signup-form');
+        const suggestionInput = document.getElementById('suggestion-input');
+        const wordCountDisplay = document.getElementById('word-count-display');
+        const customerResult = document.getElementById('customer-result');
+        const MAX_WORDS = 20;
 
-        // Set initial progress from CSS
-        // const initialWidth = parseFloat(getComputedStyle(progressFill).width) / parseFloat(getComputedStyle(progressFill.parentNode).width) * 100;
-        const initialWidth = progressFill.dataset.progress || 70
-        console.log(initialWidth);
-        progressPercentage.textContent = `${Math.round(initialWidth)}%`;
-        progressPercentage.style.opacity = '70';
+        // --- Vendor Form Elements ---
+        const vendorForm = document.getElementById('vendor-interest-form');
+        const vendorResult = document.getElementById('vendor-result');
 
-        // --- Word Count Logic ---
-        function updateWordCount() {
-            const text = messageTextarea.value.trim();
-            const words = text ? text.split(/\s+/).filter(word => word !== '') : [];
-            const currentWordCount = words.length;
 
-            messageWordCount.textContent = `${currentWordCount} / ${MAX_WORDS} words`;
-
-            if (currentWordCount > MAX_WORDS) {
-                messageWordCount.classList.add('error');
-                submitButton.disabled = true; // Disable submit if over limit
-            } else {
-                messageWordCount.classList.remove('error');
-                // Only re-enable if no other validation errors (handled in validateForm)
-                submitButton.disabled = false;
-            }
-
-            // Add/remove error class on textarea based on word count
-            if (currentWordCount > MAX_WORDS) {
-                messageTextarea.classList.add('input-error');
-            } else {
-                messageTextarea.classList.remove('input-error');
-            }
-        }
-
-        // Prevent typing more words than allowed
-        messageTextarea.addEventListener('input', function() {
-            const text = messageTextarea.value.trim();
-            const words = text ? text.split(/\s+/).filter(word => word !== '') : [];
-
-            if (words.length > MAX_WORDS) {
-                // Truncate the text to the last valid word count
-                messageTextarea.value = words.slice(0, MAX_WORDS).join(' ');
-                updateWordCount(); // Update count after truncation
-            } else {
-                updateWordCount();
-            }
-        });
-
-        // Initial call to set the count on page load (if there's pre-filled text)
-        updateWordCount();
-
-        // --- Form Validation Logic (for empty required fields) ---
-        function validateForm() {
-            let isValid = true;
-            let errorMessage = [];
-
-            // Reset error styles
-            nameInput.classList.remove('input-error');
-            emailInput.classList.remove('input-error');
-            messageTextarea.classList.remove('input-error'); // Already handled by word count, but good for consistency
-
-            // Validate Name
-            if (nameInput.value.trim() === '') {
-                isValid = false;
-                nameInput.classList.add('input-error');
-                errorMessage.push('Name cannot be empty.');
-            }
-
-            // Validate Email (simple check for emptiness for now, advanced email validation can be added)
-            if (emailInput.value.trim() === '') {
-                isValid = false;
-                emailInput.classList.add('input-error');
-                errorMessage.push('Email cannot be empty.');
-            } else if (!/\S+@\S+\.\S+/.test(emailInput.value.trim())) { // Basic email format check
-                isValid = false;
-                emailInput.classList.add('input-error');
-                errorMessage.push('Please enter a valid email address.');
-            }
-
-            // Validate Message (check for emptiness, word count is already handled by updateWordCount)
-            if (messageTextarea.value.trim() === '') {
-                isValid = false;
-                messageTextarea.classList.add('input-error');
-                errorMessage.push('Suggestion cannot be empty.');
-            } else if (messageTextarea.value.trim().split(/\s+/).filter(word => word !== '').length > MAX_WORDS) {
-                // Re-check word count here just in case (though input listener should prevent it)
-                isValid = false;
-                errorMessage.push(`Suggestion exceeds the ${MAX_WORDS} word limit.`);
-            }
-
-            if (!isValid) {
-                result.style.display = "block";
-                result.textContent = errorMessage.join(' '); // Join messages with a space
-                result.style.color = '#e74c3c';
-                submitButton.disabled = true; // Ensure button is disabled
-            } else {
-                result.style.display = "none";
-                result.textContent = '';
-                submitButton.disabled = false; // Ensure button is enabled if all good
-            }
-            return isValid;
-        }
-
-        // Add input event listeners to clear errors on typing
-        nameInput.addEventListener('input', () => {
-            nameInput.classList.remove('input-error');
-            validateForm(); // Re-validate to update button state
-        });
-        emailInput.addEventListener('input', () => {
-            emailInput.classList.remove('input-error');
-            validateForm(); // Re-validate to update button state
-        });
-        // Message textarea already has input listener for word count, which also updates class
-
-        // --- Form Submission Logic ---
-        form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent default submission initially
-
-            // First, run our custom validation
-            if (!validateForm()) {
-                // If validation fails, stop here. Error message and styles are already set by validateForm.
-                return;
-            }
-
-            // Check if button is disabled due to word count (redundant if validateForm works, but a final check)
-            if (submitButton.disabled) {
-                // This case should ideally be caught by validateForm now, but good as a fail-safe
-                result.style.display = "block";
-                result.textContent = `Please limit your suggestion to ${MAX_WORDS} words.`;
-                result.style.color = '#e74c3c';
-                setTimeout(() => { result.style.display = "none"; }, 5000);
-                return;
-            }
-
-            result.style.display = "block";
-            result.textContent = "Please wait...";
-
-            const formData = new FormData(form);
-            const accessKey = formData.get('access_key');
-            if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
-                result.textContent = "Error: Please replace YOUR_ACCESS_KEY_HERE with your actual Web3Forms Access Key.";
-                result.style.color = '#e74c3c';
-                return;
-            }
-
-            const object = {};
-            formData.forEach((value, key) => {
-                object[key] = value;
+        // --- 1. Auto-Focus Logic ---
+        ctaButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                setTimeout(() => {
+                    if (emailInput) {
+                        emailInput.focus();
+                    }
+                }, 500);
             });
-            const json = JSON.stringify(object);
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
-            })
-                .then(async (response) => {
-                    let responseJson;
-                    try {
-                        responseJson = await response.json();
-                    } catch (error) {
-                        console.error("Error parsing response JSON:", error);
-                        result.textContent = "An unexpected error occurred. Please try again.";
-                        result.style.color = '#e74c3c';
-                        return;
-                    }
-
-                    if (response.ok) {
-                        result.textContent = "Thank you! Your suggestion has been sent.";
-                        result.style.color = '#00b98b';
-                        form.reset(); // Reset form fields on success
-                        updateWordCount(); // Reset word count display
-                    } else {
-                        console.error("Web3Forms error response:", responseJson);
-                        result.textContent = responseJson.message || "Something went wrong! Please try again.";
-                        result.style.color = '#e74c3c';
-                    }
-                })
-                .catch(error => {
-                    console.error("Fetch API error:", error);
-                    result.textContent = "Network error. Please check your internet connection and try again.";
-                    result.style.color = '#e74c3c';
-                })
-                .finally(function () {
-                    setTimeout(() => {
-                        result.style.display = "none";
-                        result.style.color = '#00b98b'; // Reset color
-                    }, 5000);
-                });
         });
+
+        if (window.location.hash === '#early-access' && emailInput) {
+            emailInput.focus();
+        }
+
+        // --- 2. Robust Word Count Logic (NOW INCLUDES TRUNCATION) ---
+        function updateWordCount() {
+            if (!suggestionInput || !wordCountDisplay) return;
+
+            const text = suggestionInput.value.trim();
+            const words = text ? text.split(/\s+/).filter(word => word !== '') : [];
+            let currentWordCount = words.length;
+
+            // CRITICAL FIX: If we exceed the max, we truncate the input value immediately.
+            if (currentWordCount > MAX_WORDS) {
+                // Slice the array of words and rejoin them to cut the extra words
+                suggestionInput.value = words.slice(0, MAX_WORDS).join(' ');
+                currentWordCount = MAX_WORDS; // Set display count to max
+            }
+
+            // Update display text and color
+            wordCountDisplay.textContent = `Word count: ${currentWordCount} / ${MAX_WORDS}`;
+
+            if (currentWordCount === MAX_WORDS) {
+                wordCountDisplay.style.color = '#e74c3c'; // Red at limit
+                wordCountDisplay.style.display = 'block';
+            } else if (currentWordCount >= MAX_WORDS * 0.8) {
+                wordCountDisplay.style.color = 'orange'; // Warning color
+                wordCountDisplay.style.display = 'block';
+            } else if (currentWordCount > 0) {
+                wordCountDisplay.style.color = 'inherit'; // Default color
+                wordCountDisplay.style.display = 'block';
+            } else {
+                wordCountDisplay.style.color = 'inherit';
+                wordCountDisplay.style.display = 'block';
+            }
+        }
+
+        // Attach event listener for the customer suggestion field
+        if (suggestionInput) {
+            suggestionInput.addEventListener('input', updateWordCount);
+            updateWordCount(); // Initial call
+        }
+
+
+        // --- 3. Unified Web3Forms Submission Logic (Submission check remains strong) ---
+        function handleWeb3FormSubmit(formElement, resultElement, formName) {
+            if (!formElement) return;
+
+            formElement.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Final Word Count Check (Specific to Customer Form - REDUNDANT BUT SAFEGUARD)
+                if (formName === 'customer_early_access' && suggestionInput) {
+                    const text = suggestionInput.value.trim();
+                    const words = text ? text.split(/\s+/).filter(word => word !== '') : [];
+
+                    // If the user somehow bypassed the input handler (e.g., paste), halt submission.
+                    if (words.length > MAX_WORDS) {
+                        resultElement.textContent = `Error: Please limit your suggestion to ${MAX_WORDS} words.`;
+                        resultElement.style.color = '#e74c3c';
+                        return; // HALT SUBMISSION
+                    }
+                }
+
+                resultElement.textContent = "Sending...";
+                resultElement.style.color = '#333';
+
+                const formData = new FormData(formElement);
+                const accessKey = formData.get('access_key');
+
+                if (accessKey === 'YOUR_ACCESS_KEY_HERE') {
+                    resultElement.textContent = "Error: Please replace YOUR_ACCESS_KEY_HERE with your actual Web3Forms Access Key.";
+                    resultElement.style.color = '#e74c3c';
+                    return;
+                }
+
+                const object = {};
+                formData.forEach((value, key) => { object[key] = value; });
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                    .then(async (response) => {
+                        if (response.ok) {
+                            gtag('event', 'lead_form_submitted', { 'form_name': formName, 'success': true });
+                            resultElement.textContent = "Success! Thank you.";
+                            resultElement.style.color = '#00b98b';
+                            formElement.reset();
+                            if (formName === 'customer_early_access') updateWordCount(); // Reset word count
+                        } else {
+                            gtag('event', 'lead_form_submitted', { 'form_name': formName, 'success': false });
+                            const responseJson = await response.json();
+                            resultElement.textContent = responseJson.message || "Submission failed! Please try again.";
+                            resultElement.style.color = '#e74c3c';
+                        }
+                    })
+                    .catch(error => {
+                        gtag('event', 'lead_form_submitted', { 'form_name': formName, 'success': false, 'error_type': 'network' });
+                        resultElement.textContent = "Network error. Please try again.";
+                        resultElement.style.color = '#e74c3c';
+                    })
+                    .finally(function () {
+                        setTimeout(() => {
+                            resultElement.textContent = "";
+                        }, 5000);
+                    });
+            });
+        }
+
+        // --- 4. Initialize Forms ---
+        handleWeb3FormSubmit(customerForm, customerResult, 'customer_early_access');
+        handleWeb3FormSubmit(vendorForm, vendorResult, 'vendor_interest');
     });
 </script>
+
 </body>
 </html>
