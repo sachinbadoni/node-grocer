@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nominate a Shop - SmartGrocery.uk</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Suggest a hidden gem local ethnic grocer you would love to see join SmartGrocery.uk.">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K04QZD1731"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K04QZD1731');
+    </script>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <h1 class="logo">SmartGrocery<span class="logo-dot">.uk</span></h1>
+        <nav>
+            <a href="index.html#mission">Our Mission</a>
+            <a href="index.html#features">How It Works</a>
+            <a href="index.html#partner-with-us">For Shops</a>
+            <a href="index.html#early-access" class="cta-button-nav">Get Early Access</a>
+        </nav>
+    </div>
+</header>
+
+<section class="policy-content-section">
+    <div class="container" style="max-width: 600px; text-align: center;">
+
+        <h1 class="policy-title">Nominate a Hidden Gem Shop 💎</h1>
+        <p style="margin-bottom: 30px;">
+            Tell us about the amazing local ethnic grocers, butchers, or bakers you want to see online. We'll reach out to them!
+        </p>
+
+        <form action="https://api.web3forms.com/submit" method="POST" id="nominate-shop-form" class="vendor-interest-form">
+
+            <input type="hidden" name="access_key" value="ef366eb1-fc9a-4789-942f-8be22ee082df">
+            <input type="hidden" name="subject" value="New Shop Nomination from Community">
+
+            <input type="text" name="Shop Name" placeholder="Shop's Full Name (e.g., Patel's Spices)" required>
+            <input type="text" name="Shop Type" placeholder="Type of Shop/Cuisine (e.g., Polish Deli, Caribbean Grocer)" required>
+            <input type="text" name="Postcode" placeholder="Shop's Postcode (e.g., NW1 2AB)" required>
+
+            <hr style="margin: 20px 0; border-top: 1px dashed #eee;">
+
+            <input type="text" name="Your Name" placeholder="Your Name (Optional)">
+            <input type="email" name="Your Email" placeholder="Your Email (Optional, to thank you)">
+
+            <button type="submit" class="cta-button-large">Send Nomination</button>
+            <p id="nomination-result" style="margin-top: 15px; font-weight: 600;"></p>
+        </form>
+
+        <p class="small-print" style="margin-top: 20px;">
+            We appreciate you supporting our mission to bring local gems online!
+        </p>
+
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="accessibility.html">Accessibility Statement</a>
+        </div>
+        <p>&copy; 2025 SmartGrocery.uk. Support Local. Shop Smart.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const formElement = document.getElementById('nominate-shop-form');
+        const resultElement = document.getElementById('nomination-result');
+
+        if (formElement) {
+            formElement.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                resultElement.textContent = "Sending...";
+                resultElement.style.color = '#333';
+
+                const formData = new FormData(formElement);
+                const accessKey = formData.get('access_key');
+
+                if (accessKey === 'YOUR_ACCESS_KEY_HERE') {
+                    resultElement.textContent = "Error: Please replace YOUR_ACCESS_KEY_HERE with your actual Web3Forms Access Key.";
+                    resultElement.style.color = '#e74c3c';
+                    return;
+                }
+
+                const object = {};
+                formData.forEach((value, key) => { object[key] = value; });
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                    .then(async (response) => {
+                        if (response.ok) {
+                            // Track success in GA4
+                            gtag('event', 'shop_nomination_submitted', { 'success': true });
+                            resultElement.textContent = "Success! Thank you for the nomination.";
+                            resultElement.style.color = '#00b98b';
+                            formElement.reset();
+                        } else {
+                            // Track failure in GA4
+                            gtag('event', 'shop_nomination_submitted', { 'success': false });
+                            const responseJson = await response.json();
+                            resultElement.textContent = responseJson.message || "Submission failed! Please try again.";
+                            resultElement.style.color = '#e74c3c';
+                        }
+                    })
+                    .catch(error => {
+                        gtag('event', 'shop_nomination_submitted', { 'success': false, 'error_type': 'network' });
+                        resultElement.textContent = "Network error. Please try again.";
+                        resultElement.style.color = '#e74c3c';
+                    })
+                    .finally(function () {
+                        setTimeout(() => {
+                            resultElement.textContent = "";
+                        }, 5000);
+                    });
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
